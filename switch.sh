@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 OPTS=`getopt -o hp:i: --long help,project:,instance: -n 'parse-options' -- "$@"`
 if [ $? != 0 ] ; then echo "Failed parsing options." >&2 ; exit 1 ; fi
@@ -8,8 +8,8 @@ eval set -- "$OPTS"
 
 while true; do
   case "$1" in
-    -h | --help )    HELP=true; shift ;;
-    -p | --project ) project="$2"; shift; shift ;;
+    -h | --help )     HELP=true; shift ;;
+    -p | --project )  project="$2"; shift; shift ;;
     -i | --instance ) instance="$2"; shift; shift ;;
     -- ) shift; break ;;
     * ) break ;;
