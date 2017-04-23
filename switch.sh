@@ -49,7 +49,7 @@ projectPath=/opt/projects/${project}/${instance}/${other}
 
 cd ${projectPath}
 # Updating another instance
-${projectPath}/restart.sh
+source ${projectPath}/restart.sh
 
 # Current instance config remove
 rm ${enabledConfigPath}/${app}
