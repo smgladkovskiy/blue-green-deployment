@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
+# Parse cli options
 OPTS=`getopt -o hp:i: --long help,project:,instance: -n 'parse-options' -- "$@"`
 if [ $? != 0 ] ; then echo "Failed parsing options." >&2 ; exit 1 ; fi
 
-#echo "$OPTS"
-eval set -- "$OPTS"
+eval set -- "${OPTS}"
 
 while true; do
   case "$1" in
@@ -33,6 +33,8 @@ fi
 
 app=$(basename ${enabledConfigPath}/*)
 
+echo "Project ${project} for instance ${instance} is on ${app} point."
+
 # Investigate instance
 if [ ${app} == 'green' ]
 then
@@ -40,6 +42,8 @@ then
 else
   other='green'
 fi
+
+echo "Switching to ${other}... "
 
 projectPath=/opt/projects/${project}/${instance}/${other}
 
@@ -55,3 +59,7 @@ ln -s ${availableConfigPath}/${other} ${enabledConfigPath}/${other}
 
 # nginx reload
 exec nginx -s reload
+
+echo "Done!"
+echo "Project ${project} for instance ${instance} is on ${other} point."
+echo "Try it out!"
