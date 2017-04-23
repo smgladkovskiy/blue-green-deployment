@@ -43,6 +43,7 @@ fi
 
 projectPath=/opt/projects/${project}/${instance}/${other}
 
+cd ${projectPath}
 # Updating another instance
 ${projectPath}/restart.sh
 
@@ -50,7 +51,7 @@ ${projectPath}/restart.sh
 rm ${enabledConfigPath}/${app}
 
 # Other instance config link set
-ln -s ${availableConfigPath}/${other} ${enabledConfigPath}
+ln -s ${availableConfigPath}/${other} ${enabledConfigPath}/${other}
 
 # nginx reload
 exec nginx -s reload
