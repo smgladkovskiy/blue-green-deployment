@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
-. ./_getopt.sh
+# Getting current script path
+pushd `dirname $0` > /dev/null
+switchPath=`pwd -P`
+popd > /dev/null
 
-. ./_reload.sh
+. "${switchPath}/_getopt.sh"
+
+. "${switchPath}/_reload.sh"

@@ -22,7 +22,6 @@ then
     exit 1;
 fi
 
-switchPath=$(pwd)
 availableConfigPath=/etc/nginx/sites-available/${project}/${instance}
 enabledConfigPath=/etc/nginx/sites-enabled/${project}/${instance}
 
