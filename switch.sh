@@ -9,6 +9,7 @@ cd ${projectPath}
 echo "Updating and restarting another instance"
 . "${projectPath}/restart.sh"
 
+cd ${switchPath}
 . ./_reload.sh
 
 echo "Done!"
