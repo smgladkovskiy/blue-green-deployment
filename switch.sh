@@ -5,17 +5,18 @@ pushd `dirname $0` > /dev/null
 switchPath=`pwd -P`
 popd > /dev/null
 
+. "${switchPath}/_functions.sh"
 . "${switchPath}/_getopt.sh"
 
-echo "Switching to ${other}... "
+info "Switching to ${bold}${otherColor}${other}${reset}... "
 projectPath=/opt/projects/${project}/${instance}/${other}
 cd ${projectPath}
 
-echo "Updating and restarting another instance"
+warn "Updating and restarting another instance"
 . "${projectPath}/restart.sh"
 
 . "${switchPath}/_reload.sh"
 
-echo "Done!"
-echo "Project ${project} for instance ${instance} is on ${other} point."
-echo "Try it out!"
+success "Done!"
+info "Project ${bold}${project}${reset} for instance ${bold}${instance}${reset} is on ${otherColor}${other}${reset} point."
+info "Try it out!"

@@ -2,7 +2,7 @@
 
 # Parse cli options
 OPTS=`getopt -o hp:i: --long help,project:,instance: -n 'parse-options' -- "$@"`
-if [ $? != 0 ] ; then echo "Failed parsing options." >&2 ; exit 1 ; fi
+if [ $? != 0 ] ; then error "Failed parsing options." >&2 ; exit 1 ; fi
 
 eval set -- "${OPTS}"
 
@@ -18,7 +18,7 @@ done
 
 if [[ ${project} == '' || ${instance} == '' ]]
 then
-    echo 'Project and instance options are mandatory to enter!'
+    error 'Project and instance options are mandatory to enter!'
     exit 1;
 fi
 
@@ -27,18 +27,22 @@ enabledConfigPath=/etc/nginx/sites-enabled/${project}/${instance}
 
 if [ ! -d ${enabledConfigPath} ]
 then
-    echo "There is no settled config in ${enabledConfigPath}"
+    error "There is no settled config in ${underline}${enabledConfigPath}${reset}"
     exit 1;
 fi
 
 app=$(basename ${enabledConfigPath}/*)
 
-echo "Project ${project} for instance ${instance} is on ${app} point."
-
 # Investigate instance
 if [ ${app} == 'green' ]
 then
   other='blue'
+  otherColor=${blue}
+  appColor=${green}
 else
   other='green'
+  otherColor=${green}
+  appColor=${blue}
 fi
+
+info "Project ${bold}${project}${reset}${yellow} for instance ${bold}${instance}${reset}${yellow} is on ${bold}${appColor}${app}${reset}${yellow} point."

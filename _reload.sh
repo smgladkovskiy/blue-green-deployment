@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-echo "Remove ${app} as current config link from ${enabledConfigPath}/"
+warn "Remove ${bold}${app}${reset}${yellow} as current config link from ${underline}${enabledConfigPath}/${reset}"
 rm ${enabledConfigPath}/${app}
 
-echo "Set ${other} as another config link to ${enabledConfigPath}/"
+warn "Set ${otherColor}${other}${reset}${yellow} as another config link to ${underline}${enabledConfigPath}/${reset}"
 ln -s ${availableConfigPath}/${other} ${enabledConfigPath}/${other}
 
-echo "Reloading nginx"
+warn "Reloading nginx"
 nginx -s reload
