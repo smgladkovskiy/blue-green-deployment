@@ -5,17 +5,29 @@ pushd `dirname $0` > /dev/null
 switchPath=`pwd -P`
 popd > /dev/null
 
-. "${switchPath}/_functions.sh"
-. "${switchPath}/_getopt.sh"
+. ${switchPath}/.env
+. ${switchPath}/helpers/colors.sh
+. ${switchPath}/helpers/getOptForSwitch.sh
 
 info "Switching to ${bold}${otherColor}${other}${reset}... "
-projectPath=/opt/projects/${project}/${instance}/${other}
-cd ${projectPath}
+projectPath=${projectsPath}/${project}/${instance}/${other}
 
-warn "Updating and restarting another instance"
-. "${projectPath}/restart.sh"
+if [[ -d ${projectPath} ]]; then
+    cd ${projectPath}
+else
+    error "No such file or directory: ${projectPath}"
+    exit 1
+fi
 
-. "${switchPath}/_reload.sh"
+warn "Trying to update and restart another instance"
+if [[ -f ${projectPath}/restart.sh ]]; then
+    . ${projectPath}/restart.sh
+else
+    error "No such file or directory: ${projectPath}/restart.sh"
+    exit 1
+fi
+
+. ${switchPath}/actions/nginxSwitchConfig.sh
 
 success "Done!"
 info "Project ${bold}${project}${reset} for instance ${bold}${instance}${reset} is on ${otherColor}${other}${reset} point."

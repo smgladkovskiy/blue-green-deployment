@@ -22,8 +22,8 @@ then
     exit 1;
 fi
 
-availableConfigPath=/etc/nginx/sites-available/${project}/${instance}
-enabledConfigPath=/etc/nginx/sites-enabled/${project}/${instance}
+availableConfigPath=${nginxAvailableConfigs}/${project}/${instance}
+enabledConfigPath=${nginxEnabledConfigs}/${project}/${instance}
 
 if [ ! -d ${enabledConfigPath} ]
 then
