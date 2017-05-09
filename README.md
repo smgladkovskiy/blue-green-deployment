@@ -12,9 +12,10 @@ https://martinfowler.com/bliki/BlueGreenDeployment.html
 By default folder structure of all BGD complex is like that:
 
     |- /opt/
-    |  |- bgd/                           <- current project folder
+    |  |- blue-gree-deployment/          <- current project folder
     |  |- projects/                      <- projects folder (docker-compose instances for projects)
     |  |  |- project-name/               <- current project folder
+    |  |  |  |- logs/                    <- logs folder
     |  |  |  |- {test,stage,production}/ <- stage folder
     |  |  |  |  |- {green,blue}/         <- instance folder. Here docker-compose folder is cloned
     |
@@ -36,14 +37,20 @@ folder
 
 After initialization your should configure every instance of docker-compose for all stages for the project.
 
+Init script will create two files for your server:
+* `.env` - main paths to BGD and projects
+* `.used-ports` - here will be stored used by BGD ports for nginx proxy
+
+If you want to customize variables in this files, you can make them from examples.
+
 #### 2. Instance switching
 
-    /opt/bgd/swith.sh -p projectName -i stage
+    /opt/blue-gree-deployment/swith.sh -p projectName -i stage
 
 #### 3. Database migrations
 
-    /opt/bgd/migrate.sh -p projectName -i stage
+    /opt/blue-gree-deployment/migrate.sh -p projectName -i stage
 
 #### 4. Fallback without update
 
-    /opt/bgd/fallback.sh -p projectName -i stage
+    /opt/blue-gree-deployment/fallback.sh -p projectName -i stage

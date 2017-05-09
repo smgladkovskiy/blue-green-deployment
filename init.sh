@@ -56,7 +56,7 @@ logsPath=${projectsPath}/${project}/logs
 mkdir -p ${logsPath}
 success "Project logs path '${logsPath}' is created"
 
-stages=( 'stage' 'test' )
+stages=( 'production', 'stage' 'test' )
 instances=( 'green' 'blue' )
 lastUsedPort=$(tail -1 "${usedPortsFile}")
 let "nextPort = ${lastUsedPort} - (${lastUsedPort} - 8000)/10"
