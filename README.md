@@ -45,12 +45,12 @@ If you want to customize variables in this files, you can make them from example
 
 #### 2. Instance switching
 
-    /opt/blue-gree-deployment/swith.sh -p projectName -i stage
+    /opt/blue-green-deployment/switch.sh -p projectName -i stage
 
 #### 3. Database migrations
 
-    /opt/blue-gree-deployment/migrate.sh -p projectName -i stage
+    /opt/blue-green-deployment/migrate.sh -p projectName -i stage
 
 #### 4. Fallback without update
 
-    /opt/blue-gree-deployment/fallback.sh -p projectName -i stage
+    /opt/blue-green-deployment/fallback.sh -p projectName -i stage
