@@ -2,4 +2,4 @@
 
 . ./.env
 
-docker exec -t ${COMPOSE_PROJECT_NAME/-/}_web_1 php artisan migrate --force --no-interaction
+docker exec -t ${COMPOSE_PROJECT_NAME//-/}_web_1 php artisan migrate --force --no-interaction

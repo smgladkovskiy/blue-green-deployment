@@ -11,6 +11,7 @@ popd > /dev/null
 
 info "Switching to ${bold}${otherColor}${other}${reset}... "
 projectPath=${projectsPath}/${project}/${instance}/${other}
+currentInstancePath=${projectsPath}/${project}/${instance}/${app}
 
 if [[ -d ${projectPath} ]]; then
     cd ${projectPath}
@@ -28,6 +29,10 @@ else
 fi
 
 . ${switchPath}/actions/nginxSwitchConfig.sh
+
+info "Stopping ${app} instance"
+cd ${currentInstancePath}
+. ./stop.sh
 
 success "Done!"
 info "Project ${bold}${project}${reset} for instance ${bold}${instance}${reset} is on ${otherColor}${other}${reset} point."
