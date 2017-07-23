@@ -24,7 +24,7 @@ while true; do
     --help )          HELP=true; shift ;;
     -p | --project )  project="$2"; shift; shift ;;
     -h | --project-host-base )  projectHostBase="$2"; shift; shift ;;
-    -r | --repo )     repo="$2"; shift; shift ;;
+    -c | --compose )     compose="$2"; shift; shift ;;
     -- ) shift; break ;;
     * ) break ;;
   esac
@@ -33,16 +33,16 @@ done
 success "Creating project structure:"
 info "Project: ${project}"
 info "Host Base: *.${projectHostBase}"
-info "Git repo for docker-env: ${repo}"
+info "Git repo or path in project for docker-env: ${compose}"
 
-if [[ ${project} == '' || ${projectHostBase} == '' || ${repo} == '' ]]
+if [[ ${project} == '' || ${projectHostBase} == '' || ${compose} == '' ]]
 then
     error 'Project, repo and project-host options are mandatory to enter!'
     exit 1;
 fi
 
 # Check git clone ability
-if [[ ! ($(git ls-remote ${repo})) ]]; then
+if [[ ${compose} ?? 'git' && ! ($(git ls-remote ${compose})) ]]; then
     error 'There is no access to clone doker-compose repo for project!'
     exit 1;
     # Put Failure actions here...
@@ -96,12 +96,12 @@ do
         sed -i "s,LOGS_PATH,${logsPath},g" ${nginxConfig}
         success "Nginx config '${nginxConfig}' is created"
 
-        git clone -q ${repo} ${projectInstancePath}
+        git clone -q ${compose} ${projectInstancePath}
         cp ${projectInstancePath}/.env.example ${projectInstancePath}/.env
         sed -i "s,NGINX_HTTP_PORT=80,NGINX_HTTP_PORT=${nextPort},g" ${projectInstancePath}/.env
         sed -i "s,INSTANCE=develop,INSTANCE=${instance},g" ${projectInstancePath}/.env
-	ln -s ./templates/stop.sh ${projectInstancePath}/stop.sh
-	ln -s ./templates/restart.sh ${projectInstancePath}/restart.sh
+        ln -s ./templates/stop.sh ${projectInstancePath}/stop.sh
+        ln -s ./templates/restart.sh ${projectInstancePath}/restart.sh
     done
 done
 
