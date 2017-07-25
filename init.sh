@@ -6,6 +6,7 @@
 success "Start environment initialization..."
 
 # ENV files init
+switchPath=`pwd -P`
 envFile='.env'
 usedPortsFile='.used-ports'
 fileFromExample ${envFile}
@@ -100,8 +101,8 @@ do
         cp ${projectInstancePath}/.env.example ${projectInstancePath}/.env
         sed -i "s,NGINX_HTTP_PORT=80,NGINX_HTTP_PORT=${nextPort},g" ${projectInstancePath}/.env
         sed -i "s,INSTANCE=develop,INSTANCE=${instance},g" ${projectInstancePath}/.env
-        ln -s ./templates/stop.sh ${projectInstancePath}/stop.sh
-        ln -s ./templates/restart.sh ${projectInstancePath}/restart.sh
+        ln -s ${switchPath}/templates/stop.sh ${projectInstancePath}/stop.sh
+        ln -s ${switchPath}/templates/restart.sh ${projectInstancePath}/restart.sh
     done
 done
 
