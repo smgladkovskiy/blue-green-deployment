@@ -15,7 +15,7 @@ fileFromExample ${usedPortsFile}
 . ./.env
 
 success "Parsing CLI options"
-OPTS=`getopt -o p:h:r: --long project:,project-host-base:,repo: -n 'parse-options' -- "$@"`
+OPTS=`getopt -o p:h:c: --long project:,project-host-base:,compose: -n 'parse-options' -- "$@"`
 if [ $? != 0 ] ; then error "Failed parsing options." >&2 ; exit 1 ; fi
 
 eval set -- "${OPTS}"
