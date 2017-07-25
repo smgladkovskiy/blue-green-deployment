@@ -43,7 +43,7 @@ then
 fi
 
 # Check git clone ability
-if [[ ${compose} ?? 'git' && ! ($(git ls-remote ${compose})) ]]; then
+if [[ ${compose} == 'git' && ! ($(git ls-remote ${compose})) ]]; then
     error 'There is no access to clone doker-compose repo for project!'
     exit 1;
     # Put Failure actions here...
